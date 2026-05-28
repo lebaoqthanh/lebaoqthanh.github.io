@@ -327,6 +327,19 @@ made for the late 90s.
       </div>
       <div class="music-body">
         <div class="music-viz" id="musicViz"></div>
+        <div class="mini-player" aria-hidden="true">
+          <div class="mini-track">
+            <span class="mini-song">oldies · Thanh Le</span>
+            <div class="mini-progress">
+              <span class="mini-progress-fill"></span>
+            </div>
+          </div>
+          <div class="mini-controls">
+            <button class="mini-btn" aria-label="Previous track">◀◀</button>
+            <button class="mini-btn play" aria-label="Play">▶</button>
+            <button class="mini-btn" aria-label="Next track">▶▶</button>
+          </div>
+        </div>
         <iframe
           class="spotify-embed"
           src="https://open.spotify.com/embed/playlist/2aDa5kepX32oc1P3nEMabD?utm_source=generator&theme=0"
@@ -335,6 +348,45 @@ made for the late 90s.
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy">
         </iframe>
+      </div>
+    </div>
+
+    <!-- ─── Mobile phone shell (Pocket PC / WinCE style) ─── -->
+    <div class="phone-shell">
+      <div class="phone-statusbar">
+        <span class="ph-start">⊞ Thanh<b>·CE</b></span>
+        <span class="ph-tray"><span class="ph-clock" id="phClock">10:13a</span></span>
+      </div>
+
+      <div class="phone-home" id="phoneHome">
+        <div class="phone-greeting">
+          <div class="ph-avatar">TL</div>
+          <div class="ph-greet-text">
+            <div class="ph-hi">Thanh Le</div>
+            <div class="ph-sub">Tap a program to open it</div>
+          </div>
+        </div>
+        <div class="phone-grid">
+          <button class="ph-app" data-app="about"><span class="ph-icon ph-i-comp"></span><span>About</span></button>
+          <button class="ph-app" data-app="experience"><span class="ph-icon ph-i-doc"></span><span>Resume</span></button>
+          <button class="ph-app" data-app="projects"><span class="ph-icon ph-i-folder"></span><span>Projects</span></button>
+          <button class="ph-app" data-app="skills"><span class="ph-icon ph-i-cog"></span><span>Skills</span></button>
+          <button class="ph-app" data-app="contact"><span class="ph-icon ph-i-mail"></span><span>Contact</span></button>
+          <button class="ph-app" data-app="music"><span class="ph-icon ph-i-music"></span><span>Music</span></button>
+        </div>
+      </div>
+
+      <div class="phone-navbar" id="phoneNav">
+        <button class="ph-home" id="phHome">◀ Home</button>
+        <span class="ph-appname" id="phAppName"></span>
+      </div>
+
+      <div class="phone-toast" id="phoneToast">
+        <span class="toast-icon">✉</span>
+        <div class="toast-body">
+          <span class="toast-title">Welcome to my page :)</span>
+          <span class="toast-text">tap a program to look around — made for the late 90s · — thanh</span>
+        </div>
       </div>
     </div>
 
@@ -354,6 +406,18 @@ made for the late 90s.
         <button class="task-app active" data-window="mainWindow">
           <span class="task-icon ti-folder"></span>
           <span>Thanh Le — Portfolio</span>
+        </button>
+        <button class="task-app mobile-section-app" data-mobile-section="projects">
+          <span class="task-icon ti-folder"></span>
+          <span>Projects</span>
+        </button>
+        <button class="task-app mobile-section-app" data-mobile-section="experience">
+          <span class="task-icon ti-note"></span>
+          <span>Resume</span>
+        </button>
+        <button class="task-app mobile-section-app" data-mobile-section="contact">
+          <span class="task-icon ti-note"></span>
+          <span>Contact</span>
         </button>
         <button class="task-app" data-window="noteWindow">
           <span class="task-icon ti-note"></span>

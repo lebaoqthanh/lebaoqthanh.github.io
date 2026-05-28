@@ -745,6 +745,7 @@ img, svg { image-rendering: pixelated; }
   box-shadow: inset 1px 1px 0 var(--gray-dark);
   padding: 4px;
 }
+.mini-player { display: none; }
 
 .music-display {
   background: #000;
@@ -978,6 +979,7 @@ img, svg { image-rendering: pixelated; }
     repeating-conic-gradient(from 45deg, var(--gray) 0% 25%, #d4d4d4 25% 50%) 0 0/2px 2px;
 }
 .task-app.closed { display: none; }
+.mobile-section-app { display: none; }
 .task-icon {
   width: 16px; height: 16px;
   background-repeat: no-repeat;
@@ -1107,26 +1109,372 @@ img, svg { image-rendering: pixelated; }
   margin: 5px 3px;
 }
 
-/* ─── Responsive ─── */
+/* ─── Responsive: keep the desktop metaphor, simplify only the small screens ─── */
+/* ─── Mobile phone shell — hidden on desktop/tablet, shown ≤720px ─── */
+.phone-shell { display: none; }
+.mobile-section-app { display: none !important; }
+.ph-icon { background-repeat: no-repeat; background-size: contain; background-position: center; }
+.ph-i-comp   { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Cpath d='M4 6h22v14H4z' fill='%23c0c0c0' stroke='%23000'/%3E%3Cpath d='M6 8h18v10H6z' fill='%23008080'/%3E%3Cpath d='M10 22h10v2H10z' fill='%23c0c0c0' stroke='%23000'/%3E%3Cpath d='M8 24h14v2H8z' fill='%23c0c0c0' stroke='%23000'/%3E%3Crect x='7' y='9' width='2' height='2' fill='%23ffff00'/%3E%3C/svg%3E"); }
+.ph-i-doc    { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Cpath d='M6 3h14l6 6v20H6z' fill='%23fff' stroke='%23000'/%3E%3Cpath d='M20 3v6h6' fill='%23ddd' stroke='%23000'/%3E%3Cpath d='M10 14h12M10 18h12M10 22h8' stroke='%23000080'/%3E%3C/svg%3E"); }
+.ph-i-folder { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Cpath d='M2 10h10l2 2h16v16H2z' fill='%23ffcc44' stroke='%23000'/%3E%3C/svg%3E"); }
+.ph-i-cog    { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Cpath d='M16 4l2 3 3-1 1 3 3 1-1 3 3 2-3 2 1 3-3 1-1 3-3-1-2 3-2-3-3 1-1-3-3-1 1-3-3-2 3-2-1-3 3-1 1-3 3 1z' fill='%23c0c0c0' stroke='%23000'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23fff' stroke='%23000'/%3E%3C/svg%3E"); }
+.ph-i-mail   { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Crect x='3' y='8' width='26' height='18' fill='%23fff' stroke='%23000'/%3E%3Cpath d='M3 8 L16 19 L29 8' fill='none' stroke='%23000'/%3E%3C/svg%3E"); }
+.ph-i-music  { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Crect x='2' y='2' width='28' height='28' fill='%23222'/%3E%3Cpath d='M6 10 L12 10 L16 6 L16 26 L12 22 L6 22 z' fill='%23ffcc00'/%3E%3Cpath d='M20 10 c3 0 3 12 0 12 M24 6 c5 0 5 20 0 20' fill='none' stroke='%23ffcc00' stroke-width='1.5'/%3E%3C/svg%3E"); }
+.ph-i-note   { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Cpath d='M6 3h14l6 6v20H6z' fill='%23fff' stroke='%23000'/%3E%3Cpath d='M20 3v6h6' fill='%23ddd' stroke='%23000'/%3E%3Cpath d='M10 14h12M10 18h12M10 22h6' stroke='%23000'/%3E%3C/svg%3E"); }
+
 @media (max-width: 1080px) {
-  .main-window {
-    width: calc(100vw - 16px);
-    height: calc(100vh - 92px);
-    top: 8px;
-    left: 8px;
+  html, body {
+    height: 100%;
+    min-height: 100dvh;
+    overflow: hidden;
   }
-  .note-window { display: none; }
-  .music-window { display: none; }
-  .desktop-icons { display: none; }
-  .explorer-pane { width: 180px; }
-  .window-body { height: auto; flex: 1; }
-  .title-bar { cursor: default; }
+
+  .desktop {
+    min-height: 100dvh;
+  }
+
+  .desktop-icons {
+    display: flex;
+  }
+
+  .main-window {
+    width: min(760px, calc(100vw - 132px));
+    min-width: 0;
+    height: min(700px, calc(100dvh - 488px));
+    max-height: calc(100dvh - 488px);
+    top: 16px;
+    left: 112px;
+    right: auto;
+    bottom: auto;
+  }
+
+  .note-window {
+    display: none;
+    width: min(380px, calc(100vw - 24px));
+    max-height: calc(100dvh - 56px);
+    top: 12px;
+    right: 12px;
+    bottom: auto;
+    left: auto;
+    overflow: hidden;
+  }
+
+  .notepad-body {
+    max-height: calc(100dvh - 134px);
+    overflow-y: auto;
+  }
+
+  .music-window {
+    display: block;
+    width: min(340px, calc(100vw - 132px));
+    top: auto;
+    right: 20px;
+    left: auto;
+    bottom: 42px;
+    overflow: hidden;
+  }
+
+  .spotify-embed {
+    height: 300px;
+  }
+
+  .window-body {
+    height: auto;
+    flex: 1;
+  }
+
+  .title-bar {
+    cursor: default;
+  }
+
+  .toolbar,
+  .menu-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tool-btn {
+    flex-shrink: 0;
+  }
+
+  .addr-path {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  .explorer-pane {
+    width: 190px;
+  }
+
+  .content-pane {
+    padding: 18px;
+  }
+
+  .task-app {
+    max-width: 170px;
+  }
 }
-@media (max-width: 540px) {
-  .toolbar .tool-btn span:not(.tool-glyph) { display: none; }
-  .explorer-pane { width: 150px; }
-  .menu-bar .menu-item { padding: 3px 7px; }
-  .addr-bar { padding: 3px; }
-  .addr-label { display: none; }
-  body { font-size: 14px; }
+
+@media (min-width: 721px) and (max-width: 1080px) and (orientation: landscape) {
+  .main-window {
+    width: calc(100vw - 444px);
+    height: calc(100dvh - 56px);
+    max-height: calc(100dvh - 56px);
+  }
+
+  .music-window {
+    width: 280px;
+    top: 16px;
+    right: 20px;
+    bottom: auto;
+  }
+
+  .spotify-embed {
+    height: min(300px, calc(100dvh - 98px));
+  }
+}
+
+@media (max-width: 720px) {
+  body { font-size: 15px; }
+
+  /* The desktop metaphor doesn't fit a phone — hide it entirely. */
+  .desktop-icons,
+  .taskbar,
+  .start-menu { display: none !important; }
+
+  /* Windows stay hidden until launched as a fullscreen "app". */
+  .main-window,
+  .note-window,
+  .music-window { display: none; }
+
+  /* ===== Phone shell ===== */
+  .phone-shell {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    background: var(--teal);
+  }
+
+  .phone-statusbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 30px;
+    padding: 0 12px;
+    background: linear-gradient(90deg, var(--blue), var(--blue-light));
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
+    flex-shrink: 0;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.3);
+  }
+  .ph-start { display: flex; align-items: center; gap: 6px; letter-spacing: 0.3px; }
+  .ph-start b { font-weight: 400; color: #b3d4ff; }
+  .ph-clock { font-variant-numeric: tabular-nums; }
+
+  /* ===== Home screen ===== */
+  .phone-home {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 14px 28px;
+    background: radial-gradient(circle at 50% 30%, #00a0a0 0%, var(--teal) 70%);
+  }
+
+  .phone-greeting {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin-bottom: 20px;
+    background: var(--gray);
+    border: 1px solid;
+    border-color: var(--gray-light) var(--gray-darker) var(--gray-darker) var(--gray-light);
+    box-shadow: inset -1px -1px 0 var(--gray-dark), inset 1px 1px 0 var(--white);
+  }
+  .ph-avatar {
+    width: 52px; height: 52px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 30% 25%, #2ce877, #0a5d2b);
+    color: #062814; font-weight: 900; font-size: 22px;
+    border: 1px solid var(--gray-darker);
+  }
+  .ph-hi { font-size: 19px; font-weight: bold; line-height: 1.1; }
+  .ph-sub { font-size: 13px; color: var(--gray-darker); margin-top: 3px; }
+
+  .phone-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px 6px;
+  }
+  .ph-app {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 12px 4px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.9);
+    font-family: var(--ff-mono);   /* VT323 — retro terminal vibe, phone only */
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    line-height: 1.05;
+  }
+  .ph-app:active {
+    background: rgba(255,255,255,0.14);
+    border-style: dotted;
+    border-color: #fff;
+  }
+  .ph-app .ph-icon { width: 48px; height: 48px; }
+
+  /* ===== Bottom command bar (only while an app is open) ===== */
+  .phone-navbar { display: none; }
+  body.phone-app-open .phone-navbar {
+    display: flex; align-items: center; gap: 12px;
+    position: fixed; left: 0; right: 0; bottom: 0;
+    height: 48px; z-index: 700;
+    padding: 0 8px;
+    background: var(--gray);
+    border-top: 1px solid var(--white);
+    box-shadow: inset 0 1px 0 var(--gray-light);
+  }
+  .ph-home {
+    display: flex; align-items: center; gap: 6px;
+    height: 36px; padding: 0 18px;
+    background: var(--gray);
+    border: 1px solid;
+    border-color: var(--white) var(--gray-darker) var(--gray-darker) var(--white);
+    box-shadow: inset -1px -1px 0 var(--gray-dark), inset 1px 1px 0 var(--gray-light);
+    font-weight: bold; font-size: 15px;
+  }
+  .ph-home:active {
+    border-color: var(--gray-darker) var(--white) var(--white) var(--gray-darker);
+    box-shadow: inset 1px 1px 0 var(--gray-dark), inset -1px -1px 0 var(--gray-light);
+  }
+  .ph-appname { font-size: 15px; font-weight: bold; color: var(--gray-darker); }
+
+  /* ===== Welcome notification — small auto-dismissing balloon ===== */
+  .phone-toast {
+    position: fixed;
+    left: 16px; right: 16px; bottom: 24px;
+    z-index: 800;
+    display: flex; align-items: center; gap: 9px;
+    padding: 8px 11px;
+    background: #fffce0;
+    border: 1px solid #000;
+    box-shadow: 3px 4px 0 rgba(0,0,0,0.22);
+    animation: toastPop 460ms cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .phone-toast.out  { animation: toastOut 400ms cubic-bezier(.4,0,1,1) forwards; }
+  .phone-toast.dismissed { display: none; }
+  body.phone-app-open .phone-toast { display: none; }
+  @keyframes toastPop {
+    from { opacity: 0; transform: translateY(48px) scale(0.9); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes toastOut {
+    to { opacity: 0; transform: translateY(48px) scale(0.95); }
+  }
+  .toast-icon {
+    width: 26px; height: 26px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--blue), var(--blue-light));
+    color: #fff; font-size: 13px;
+    border: 1px solid #000;
+  }
+  .toast-body { flex: 1; min-width: 0; }
+  .toast-title { display: block; font-weight: bold; font-size: 13px; margin-bottom: 1px; color: #000; }
+  .toast-text  { display: block; font-size: 11.5px; line-height: 1.35; color: #444; }
+
+  /* ===== App open: fullscreen window above the home screen ===== */
+  body.phone-app-open .phone-statusbar,
+  body.phone-app-open .phone-home { display: none; }
+
+  body.phone-app-open .main-window.app-active,
+  body.phone-app-open .note-window.app-active,
+  body.phone-app-open .music-window.app-active {
+    /* !important beats the INLINE styles the desktop window-manager JS sets:
+       z-index from focusWindow() (which sat the window BEHIND the teal shell),
+       plus left/top/width/transform from dragging. */
+    display: flex !important;
+    flex-direction: column;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 48px !important;
+    width: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    transform: none !important;
+    margin: 0 !important;
+    z-index: 900 !important;
+  }
+  body.phone-app-open .app-active .title-controls { display: none; }
+  body.phone-app-open .app-active .title-bar { cursor: default; }
+
+  /* Main window as an app — strip the explorer chrome, content fills */
+  body.phone-app-open .main-window.app-active .menu-bar,
+  body.phone-app-open .main-window.app-active .toolbar,
+  body.phone-app-open .main-window.app-active .addr-bar,
+  body.phone-app-open .main-window.app-active .explorer-pane,
+  body.phone-app-open .main-window.app-active .status-bar { display: none; }
+  body.phone-app-open .main-window.app-active .window-body {
+    flex: 1; min-height: 0; flex-direction: column;
+  }
+  body.phone-app-open .main-window.app-active .content-pane {
+    flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  }
+
+  /* Music app — real Spotify embed fills, EQ strip on top */
+  body.phone-app-open .music-window.app-active .music-body {
+    display: flex; flex-direction: column;
+    flex: 1; height: auto; padding: 4px;
+  }
+  body.phone-app-open .music-window.app-active .mini-player { display: none; }
+  body.phone-app-open .music-window.app-active .music-viz {
+    display: flex; height: 30px; margin: 0 0 4px;
+  }
+  body.phone-app-open .music-window.app-active .spotify-embed {
+    display: block; flex: 1; width: 100%; height: auto; min-height: 0;
+  }
+
+  /* Notepad app fills */
+  body.phone-app-open .note-window.app-active .notepad-body {
+    flex: 1; max-height: none;
+  }
+
+  /* ===== Content styling inside the apps ===== */
+  .content-pane { padding: 16px; font-size: 15px; }
+  .section-head { gap: 12px; margin-bottom: 16px; padding-bottom: 12px; }
+  .section-head h2 { font-size: 24px; }
+  .big-icon { width: 40px; height: 40px; }
+  .prose p { font-size: 15px; }
+  .callout { padding: 12px; align-items: flex-start; }
+  .job { padding: 12px; }
+  .bullets { margin-left: 16px; }
+  .file-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 8px; }
+  .file-name { max-width: 100%; }
+  .contact-table,
+  .contact-table tbody,
+  .contact-table tr,
+  .contact-table td { display: block; width: 100%; }
+  .contact-table td { padding: 8px 10px; }
+  .contact-table td.key { width: 100%; padding-bottom: 2px; }
+  .contact-table a { overflow-wrap: anywhere; }
+  .ini-block { font-size: 18px; }
+}
+
+@media (max-width: 390px) {
+  .phone-grid { gap: 14px 6px; }
+  .ph-app { font-size: 16px; }
+  .ph-app .ph-icon { width: 44px; height: 44px; }
+  .content-pane { padding: 13px 11px; }
+  .section-head h2 { font-size: 21px; }
+  .file-grid { grid-template-columns: 1fr; }
+  .ini-block { font-size: 17px; }
 }

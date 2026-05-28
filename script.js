@@ -21,12 +21,16 @@ const statusInfo = {
 function showSection(id) {
   document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.tree-row[data-section]').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.mobile-section-app[data-mobile-section]').forEach(el => el.classList.remove('active'));
 
   const sec = $(`section-${id}`);
   if (sec) sec.classList.add('active');
 
   const tr = document.querySelector(`.tree-row[data-section="${id}"]`);
   if (tr) tr.classList.add('active');
+
+  const mobileTask = document.querySelector(`.mobile-section-app[data-mobile-section="${id}"]`);
+  if (mobileTask) mobileTask.classList.add('active');
 
   if (paths[id]) $('addrPath').textContent = paths[id];
   if (statusInfo[id]) {
@@ -44,9 +48,22 @@ document.querySelectorAll('.tree-row[data-section]').forEach(el => {
   el.addEventListener('click', () => showSection(el.dataset.section));
 });
 
+document.querySelectorAll('.mobile-section-app[data-mobile-section]').forEach(el => {
+  el.addEventListener('click', () => {
+    openWindow('mainWindow');
+    showSection(el.dataset.mobileSection);
+  });
+});
+
 document.querySelectorAll('.desk-icon[data-target]').forEach(el => {
   let lastClick = 0;
   el.addEventListener('click', (e) => {
+    if (window.matchMedia('(max-width: 720px)').matches) {
+      showSection(el.dataset.target);
+      e.preventDefault();
+      return;
+    }
+
     const now = Date.now();
     if (now - lastClick < 400) {
       showSection(el.dataset.target);
@@ -274,6 +291,7 @@ function makeDraggable(win, handle) {
   function onDown(e) {
     if (e.target.closest('.title-btn, .title-controls, button')) return;
     if (e.button !== undefined && e.button !== 0) return;
+    if (window.matchMedia('(max-width: 720px)').matches) return;
 
     if (!initialized) initPosition();
 
@@ -380,6 +398,67 @@ document.querySelectorAll('.window').forEach(w => {
   if (!f) return;
   const base = f.getAttribute('src').split('&cb=')[0];
   f.setAttribute('src', base + '&cb=' + Date.now());
+})();
+
+// ─── Mobile: Pocket-PC home screen + fullscreen app launcher ───
+(function phoneShell() {
+  const apps = {
+    about:      { win: 'mainWindow',  section: 'about',      name: 'About.txt' },
+    experience: { win: 'mainWindow',  section: 'experience', name: 'Resume.doc' },
+    projects:   { win: 'mainWindow',  section: 'projects',   name: 'Projects' },
+    skills:     { win: 'mainWindow',  section: 'skills',     name: 'Skills.ini' },
+    contact:    { win: 'mainWindow',  section: 'contact',    name: 'Contact.txt' },
+    music:      { win: 'musicWindow', name: 'Winamp' },
+  };
+
+  function openApp(id) {
+    const cfg = apps[id];
+    if (!cfg) return;
+    document.querySelectorAll('.app-active').forEach(w => w.classList.remove('app-active'));
+    if (cfg.section && typeof showSection === 'function') showSection(cfg.section);
+    const win = document.getElementById(cfg.win);
+    if (win) win.classList.add('app-active');
+    document.body.classList.add('phone-app-open');
+    const toast = document.getElementById('phoneToast');
+    if (toast) toast.classList.add('dismissed');
+    const nm = document.getElementById('phAppName');
+    if (nm) nm.textContent = cfg.name;
+    const scroller = win && win.querySelector('.content-pane, .notepad-body');
+    if (scroller) scroller.scrollTop = 0;
+  }
+
+  function goHome() {
+    document.body.classList.remove('phone-app-open');
+    document.querySelectorAll('.app-active').forEach(w => w.classList.remove('app-active'));
+  }
+
+  document.querySelectorAll('.ph-app[data-app]').forEach(b => {
+    b.addEventListener('click', () => openApp(b.dataset.app));
+  });
+  const home = document.getElementById('phHome');
+  if (home) home.addEventListener('click', goHome);
+
+  // welcome notification auto-dismisses after a few seconds (slide-out, then hide)
+  const toastEl = document.getElementById('phoneToast');
+  if (toastEl) {
+    setTimeout(() => {
+      toastEl.classList.add('out');
+      setTimeout(() => toastEl.classList.add('dismissed'), 420);
+    }, 5500);
+  }
+
+  // status-bar clock
+  function tick() {
+    const el = document.getElementById('phClock');
+    if (!el) return;
+    const d = new Date();
+    let h = d.getHours(); const m = d.getMinutes();
+    const ap = h >= 12 ? 'p' : 'a';
+    h = h % 12 || 12;
+    el.textContent = `${h}:${String(m).padStart(2, '0')}${ap}`;
+  }
+  tick();
+  setInterval(tick, 15000);
 })();
 
 // ─── Boot ───
