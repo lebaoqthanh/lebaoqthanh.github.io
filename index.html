@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thanh Le — C:\Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="desktop">
+
+    <!-- ─── Desktop icons ─── -->
+    <div class="desktop-icons">
+      <button class="desk-icon" data-target="about">
+        <span class="icon-pix icon-mycomputer"></span>
+        <span class="icon-label">My Computer</span>
+      </button>
+      <button class="desk-icon" data-target="projects">
+        <span class="icon-pix icon-folder-yellow"></span>
+        <span class="icon-label">My Projects</span>
+      </button>
+      <button class="desk-icon" data-target="experience">
+        <span class="icon-pix icon-doc"></span>
+        <span class="icon-label">Resume.doc</span>
+      </button>
+      <button class="desk-icon" data-target="contact">
+        <span class="icon-pix icon-mail"></span>
+        <span class="icon-label">Contact</span>
+      </button>
+      <button class="desk-icon">
+        <span class="icon-pix icon-recycle"></span>
+        <span class="icon-label">Recycle Bin</span>
+      </button>
+    </div>
+
+    <!-- ─── Main window: Explorer ─── -->
+    <div class="window main-window" id="mainWindow">
+
+      <div class="title-bar">
+        <div class="title-text">
+          <span class="title-pix"></span>
+          <span>Thanh Le — Portfolio</span>
+        </div>
+        <div class="title-controls">
+          <button class="title-btn disabled" aria-label="Minimize unavailable" disabled><svg viewBox="0 0 8 8" width="8" height="8"><rect x="1" y="6" width="6" height="1" fill="#000"/></svg></button>
+          <button class="title-btn disabled" aria-label="Maximize unavailable" disabled><svg viewBox="0 0 8 8" width="8" height="8"><rect x="1" y="1" width="6" height="6" fill="none" stroke="#000" stroke-width="1"/><rect x="1" y="1" width="6" height="1" fill="#000"/></svg></button>
+          <button class="title-btn close disabled" aria-label="Close unavailable" disabled><svg viewBox="0 0 8 8" width="8" height="8"><path d="M1 1 L7 7 M7 1 L1 7" stroke="#000" stroke-width="1"/></svg></button>
+        </div>
+      </div>
+
+      <div class="menu-bar">
+        <div class="menu-item"><u>F</u>ile</div>
+        <div class="menu-item"><u>E</u>dit</div>
+        <div class="menu-item"><u>V</u>iew</div>
+        <div class="menu-item"><u>G</u>o</div>
+        <div class="menu-item"><u>H</u>elp</div>
+      </div>
+
+      <div class="toolbar">
+        <button class="tool-btn"><span class="tool-glyph">←</span><span>Back</span></button>
+        <button class="tool-btn"><span class="tool-glyph">→</span><span>Forward</span></button>
+        <div class="tool-sep"></div>
+        <button class="tool-btn"><span class="tool-glyph">↑</span><span>Up</span></button>
+        <div class="tool-sep"></div>
+        <button class="tool-btn"><span class="tool-glyph">⌕</span><span>Search</span></button>
+        <button class="tool-btn"><span class="tool-glyph">★</span><span>Favorites</span></button>
+      </div>
+
+      <div class="addr-bar">
+        <span class="addr-label">Address</span>
+        <div class="addr-field">
+          <span class="addr-folder"></span>
+          <span class="addr-path" id="addrPath">C:\Thanh\Portfolio\About.txt</span>
+          <span class="addr-caret">▾</span>
+        </div>
+      </div>
+
+      <div class="window-body">
+
+        <!-- Sidebar tree -->
+        <div class="explorer-pane">
+          <div class="pane-title">All Folders <span class="pane-x">✕</span></div>
+          <ul class="tree">
+            <li class="tree-row">
+              <span class="tree-toggle">−</span>
+              <span class="tree-icon t-mycomp"></span>
+              <span class="tree-text">My Computer</span>
+            </li>
+            <li class="tree-row depth-1">
+              <span class="tree-toggle">−</span>
+              <span class="tree-icon t-folder"></span>
+              <span class="tree-text">C:\Thanh\Portfolio</span>
+            </li>
+            <li class="tree-row depth-2 active" data-section="about">
+              <span class="tree-icon t-doc"></span>
+              <span class="tree-text">About.txt</span>
+            </li>
+            <li class="tree-row depth-2" data-section="experience">
+              <span class="tree-icon t-word"></span>
+              <span class="tree-text">Resume.doc</span>
+            </li>
+            <li class="tree-row depth-2" data-section="projects">
+              <span class="tree-icon t-folder"></span>
+              <span class="tree-text">Projects</span>
+            </li>
+            <li class="tree-row depth-2" data-section="skills">
+              <span class="tree-icon t-cog"></span>
+              <span class="tree-text">Skills.ini</span>
+            </li>
+            <li class="tree-row depth-2" data-section="contact">
+              <span class="tree-icon t-mail"></span>
+              <span class="tree-text">Contact.txt</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Content -->
+        <div class="content-pane" id="contentPane">
+
+          <!-- ABOUT -->
+          <div class="section active" id="section-about">
+            <div class="section-head">
+              <div class="big-icon big-doc"></div>
+              <div>
+                <h2>About.txt</h2>
+                <div class="meta-line">Text Document &middot; 1 KB &middot; Modified today</div>
+              </div>
+            </div>
+            <div class="prose">
+              <p>Hi, my name is <b>Thanh Le</b>. I'm a Computer Science student at the University of Utah, currently building full-stack applications and AI-integrated systems.</p>
+              <p>I work across web, backend, and machine learning — from healthcare AI infrastructure to logistics platforms. When I'm not coding, I'm into music (hence the vibe).</p>
+              <p>Currently based in Salt Lake City, Utah.</p>
+            </div>
+            <div class="callout">
+              <span class="callout-icon">★</span>
+              <span><b>Tip:</b> Double-click items in the left pane (or icons on the desktop) to navigate.</span>
+            </div>
+          </div>
+
+          <!-- EXPERIENCE -->
+          <div class="section" id="section-experience">
+            <div class="section-head">
+              <div class="big-icon big-word"></div>
+              <div>
+                <h2>Resume.doc</h2>
+                <div class="meta-line">Word Document &middot; Page 1 of 1</div>
+              </div>
+            </div>
+            <div class="experience-list">
+              <div class="job">
+                <div class="job-head">
+                  <h3>Software Engineer Intern</h3>
+                  <span class="job-date">May 2026 — Jul 2026</span>
+                </div>
+                <div class="job-company">FPT Information System &mdash; Healthcare AI Platform (Remote)</div>
+                <ul class="bullets">
+                  <li>Built MCP Gateway enabling AI assistants to securely access HIS, EMR, LIS, and RIS/PACS across multi-tenant hospital systems using Java 21 and Spring Boot.</li>
+                  <li>Implemented tool registry, RBAC + ABAC policy engine, and connector/adapter layer.</li>
+                  <li>Designed async audit logging pipeline with Kafka and correlation IDs.</li>
+                  <li>Built PHI/PII masking middleware; integrated Keycloak OIDC/JWT with hospital- and department-scoped access control.</li>
+                </ul>
+              </div>
+              <div class="job">
+                <div class="job-head">
+                  <h3>Software Developer</h3>
+                  <span class="job-date">Jun 2025 — Present</span>
+                </div>
+                <div class="job-company">Packizon &mdash; User Portal Project (Remote)</div>
+                <ul class="bullets">
+                  <li>Developed a user portal for a logistics platform specializing in package-dimensioning for e-commerce.</li>
+                  <li>Built responsive React components streamlining onboarding and the login/sign-up flow.</li>
+                  <li>Implemented Node.js authentication with modern password hashing for secure credential storage.</li>
+                  <li>Designed MongoDB schemas managing user profiles, company data, and access credentials.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECTS -->
+          <div class="section" id="section-projects">
+            <div class="section-head">
+              <div class="big-icon big-folder"></div>
+              <div>
+                <h2>Projects</h2>
+                <div class="meta-line">5 object(s) &middot; 5.0 MB</div>
+              </div>
+            </div>
+            <div class="file-grid">
+              <button class="file-item" data-proj="lms">
+                <span class="file-icon f-db"></span>
+                <span class="file-name">LMS Database System</span>
+                <span class="file-info">C#, .NET 10, MariaDB &middot; 2026</span>
+              </button>
+              <button class="file-item" data-proj="snake">
+                <span class="file-icon f-game"></span>
+                <span class="file-name">Full-Stack Snake Game</span>
+                <span class="file-info">C#, ASP.NET, Blazor &middot; 2025</span>
+              </button>
+              <button class="file-item" data-proj="otg">
+                <span class="file-icon f-globe"></span>
+                <span class="file-name">On the Go</span>
+                <span class="file-info">Python, OpenAI, Azure &middot; 2024</span>
+              </button>
+              <button class="file-item" data-proj="sparky">
+                <span class="file-icon f-fire"></span>
+                <span class="file-name">Sparky</span>
+                <span class="file-info">AWS SageMaker, React &middot; 2024</span>
+              </button>
+              <button class="file-item" data-proj="music">
+                <span class="file-icon f-music"></span>
+                <span class="file-name">Music Studio App</span>
+                <span class="file-info">Java, OOP, AWT &middot; 2023</span>
+              </button>
+            </div>
+
+            <div class="project-detail" id="projDetail">
+              <div class="pd-head">
+                <h3 id="pdName">Click a project to see details.</h3>
+                <button class="pd-close" id="pdClose">✕</button>
+              </div>
+              <ul class="bullets" id="pdList"></ul>
+            </div>
+          </div>
+
+          <!-- SKILLS -->
+          <div class="section" id="section-skills">
+            <div class="section-head">
+              <div class="big-icon big-cog"></div>
+              <div>
+                <h2>Skills.ini</h2>
+                <div class="meta-line">Configuration Settings &middot; 4 sections</div>
+              </div>
+            </div>
+            <div class="ini-block">
+<span class="ini-comment">; Thanh Le — system configuration · last updated 2026</span>
+<span class="ini-header">[Languages]</span>
+value=C#, Java, Python, JavaScript, SQL, HTML/CSS
+<span class="ini-header">[Frameworks]</span>
+value=.NET 10, ASP.NET, Blazor, Spring Boot, Node.js, React, Flask
+<span class="ini-header">[Databases]</span>
+value=MariaDB, MySQL, PostgreSQL, MongoDB, SQL Server, Cosmos DB
+<span class="ini-header">[Cloud_And_Tools]</span>
+value=Azure, AWS (SageMaker, Geolocation), Keycloak, Kafka, Redis, Docker, Git
+            </div>
+          </div>
+
+          <!-- CONTACT -->
+          <div class="section" id="section-contact">
+            <div class="section-head">
+              <div class="big-icon big-mail"></div>
+              <div>
+                <h2>Contact.txt</h2>
+                <div class="meta-line">Address Book &middot; 4 entries</div>
+              </div>
+            </div>
+            <table class="contact-table">
+              <tr><td class="key">Email</td><td><a href="mailto:lebaoqthanh@gmail.com">lebaoqthanh@gmail.com</a></td></tr>
+              <tr><td class="key">LinkedIn</td><td><a href="https://linkedin.com/in/thanh-le-75b036361" target="_blank" rel="noopener">linkedin.com/in/thanh-le-75b036361</a></td></tr>
+              <tr><td class="key">GitHub</td><td><a href="https://github.com/lebaoqthanh" target="_blank" rel="noopener">github.com/lebaoqthanh</a></td></tr>
+              <tr><td class="key">Location</td><td>Salt Lake City, UT</td></tr>
+            </table>
+            <div class="callout">
+              <span class="callout-icon">✉</span>
+              <span><b>Open to opportunities</b> &mdash; internships, full-time, side gigs. Drop a line.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <div class="status-cell" id="statusCell">1 object(s) selected</div>
+        <div class="status-cell" id="statusSize">1.0 KB</div>
+        <div class="status-cell stretch"></div>
+        <div class="status-cell">My Computer</div>
+      </div>
+    </div>
+
+    <!-- ─── Notepad: README.txt ─── -->
+    <div class="window note-window" id="noteWindow">
+      <div class="title-bar">
+        <div class="title-text">
+          <span class="title-pix title-note"></span>
+          <span>README.txt — Notepad</span>
+        </div>
+        <div class="title-controls">
+          <button class="title-btn" data-minimize="noteWindow" aria-label="Minimize"><svg viewBox="0 0 8 8" width="8" height="8"><rect x="1" y="6" width="6" height="1" fill="#000"/></svg></button>
+          <button class="title-btn"><svg viewBox="0 0 8 8" width="8" height="8"><rect x="1" y="1" width="6" height="6" fill="none" stroke="#000"/><rect x="1" y="1" width="6" height="1" fill="#000"/></svg></button>
+          <button class="title-btn close" data-close="noteWindow" aria-label="Close"><svg viewBox="0 0 8 8" width="8" height="8"><path d="M1 1 L7 7 M7 1 L1 7" stroke="#000"/></svg></button>
+        </div>
+      </div>
+      <div class="menu-bar tight">
+        <div class="menu-item"><u>F</u>ile</div>
+        <div class="menu-item"><u>E</u>dit</div>
+        <div class="menu-item">F<u>o</u>rmat</div>
+        <div class="menu-item"><u>H</u>elp</div>
+      </div>
+      <div class="notepad-body"
+>hey — thanks for stopping by :)
+
+double-click items in the left pane
+(or use Start) to explore.
+
+drag windows around; minimize to
+the taskbar, close & reopen from Start.
+
+made for the late 90s.
+— thanh<span class="cursor-blink">_</span></div>
+    </div>
+
+    <!-- ─── Winamp-style music player ─── -->
+    <div class="window music-window" id="musicWindow">
+      <div class="title-bar">
+        <div class="title-text">
+          <span class="title-pix title-music"></span>
+          <span>Winamp — Thanh.fm</span>
+        </div>
+        <div class="title-controls">
+          <button class="title-btn" data-minimize="musicWindow" aria-label="Minimize"><svg viewBox="0 0 8 8" width="8" height="8"><rect x="1" y="6" width="6" height="1" fill="#000"/></svg></button>
+          <button class="title-btn"><svg viewBox="0 0 8 8" width="8" height="8"><rect x="1" y="1" width="6" height="6" fill="none" stroke="#000"/><rect x="1" y="1" width="6" height="1" fill="#000"/></svg></button>
+          <button class="title-btn close" data-close="musicWindow" aria-label="Close"><svg viewBox="0 0 8 8" width="8" height="8"><path d="M1 1 L7 7 M7 1 L1 7" stroke="#000"/></svg></button>
+        </div>
+      </div>
+      <div class="music-body">
+        <div class="music-viz" id="musicViz"></div>
+        <iframe
+          class="spotify-embed"
+          src="https://open.spotify.com/embed/playlist/2aDa5kepX32oc1P3nEMabD?utm_source=generator&theme=0"
+          width="100%" height="380"
+          frameborder="0" allowfullscreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- ─── Taskbar ─── -->
+    <div class="taskbar">
+      <button class="start-btn" id="startBtn">
+        <span class="start-logo">
+          <span class="lg lg-r"></span>
+          <span class="lg lg-g"></span>
+          <span class="lg lg-b"></span>
+          <span class="lg lg-y"></span>
+        </span>
+        <span class="start-text"><u>S</u>tart</span>
+      </button>
+      <div class="taskbar-sep"></div>
+      <div class="taskbar-apps">
+        <button class="task-app active" data-window="mainWindow">
+          <span class="task-icon ti-folder"></span>
+          <span>Thanh Le — Portfolio</span>
+        </button>
+        <button class="task-app" data-window="noteWindow">
+          <span class="task-icon ti-note"></span>
+          <span>README.txt — Notepad</span>
+        </button>
+        <button class="task-app" data-window="musicWindow">
+          <span class="task-icon ti-music"></span>
+          <span>Winamp</span>
+        </button>
+      </div>
+      <div class="system-tray">
+        <span class="tray-icon ti-sound" title="Volume"></span>
+        <span class="tray-icon ti-net" title="Network"></span>
+        <span class="clock" id="clock">--:-- --</span>
+      </div>
+    </div>
+
+    <!-- ─── Start menu ─── -->
+    <div class="start-menu" id="startMenu">
+      <div class="start-banner">
+        <span class="banner-text">Thanh<span class="banner-97">97</span></span>
+      </div>
+      <div class="start-items">
+        <button class="start-item" data-open-window="musicWindow">
+          <span class="si-ico si-music"></span>
+          <span><u>W</u>inamp</span>
+        </button>
+        <button class="start-item" data-open-window="noteWindow">
+          <span class="si-ico si-doc"></span>
+          <span><u>R</u>EADME.txt</span>
+        </button>
+        <div class="start-divider"></div>
+        <button class="start-item">
+          <span class="si-ico si-shutdown"></span>
+          <span>Sh<u>u</u>t Down...</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
